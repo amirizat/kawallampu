@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="ajax-script.js"></script>
+    <title>Kawal Lampu</title>
+</head>
+
+<body>
+    <div style="text-align:center;">
+        <h1>Kawal Lampu</h1>
+        <img src="images/off.gif" alt="" id="lampu1" style="height: 200px;width: 200px;">
+        <br>
+        <button onclick="kawal('on','satu')">Nyalakan Lampu</button>
+        <button onclick="kawal('off','satu')">Matikan Lampu</button>
+        <br>
+        <img src="images/off.gif" alt="" id="lampu2" style="height: 200px;width: 200px;">
+        <br>
+        <button onclick="kawal('on','dua')">Nyalakan Lampu</button>
+        <button onclick="kawal('off','dua')">Matikan Lampu</button>
+        <br>
+    </div>
+    <script>
+        function kawal(params, params2) {
+            let lampu1 = document.getElementById("lampu1");
+            let lampu2 = document.getElementById("lampu2");
+            if (params == "on") {
+                if (params2 == "satu") {
+                    lampu1.src = "images/on.gif"
+                }
+                if (params2 == "dua") {
+                    lampu2.src = "images/on.gif"
+                }
+            }
+            if (params == "off") {
+                if (params2 == "satu") {
+                    lampu1.src = "images/off.gif"
+                }
+                if (params2 == "dua") {
+                    lampu2.src = "images/off.gif"
+                }
+            }
+            $.ajax({
+                type: "POST",  //type of method
+                url: "publish.php",  //your page
+                data: { data1: params2+params},// passing the values
+                success: function (response) {
+                    $("#responsecontainer").html(response); 
+                    alert(response);
+
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
